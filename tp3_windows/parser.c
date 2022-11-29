@@ -7,12 +7,13 @@
 
 /** \brief Parsea los datos de los jugadores desde el archivo jugadores.csv (modo texto).
  *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
+ * \param pFile FILE* Puntero a la estructura FILE que contiene los datos del archivo a parsear
+ * \param pArrayListJugador LinkedList* Puntero a la LinkedList donde se guardaran los datos
+ * \return int Retorna 0 si pudo parsear bien y -1 si no pudo
  */
 int parser_JugadorFromText(FILE *pFile, LinkedList *pArrayListJugador) {
 	int retorno;
+	char auxPrimeraLinea[1024];
 	char auxId[100];
 	char auxNombreCompleto[100];
 	char auxEdad[100];
@@ -24,14 +25,13 @@ int parser_JugadorFromText(FILE *pFile, LinkedList *pArrayListJugador) {
 
 	retorno = -1;
 
-	fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", auxId,
-			auxNombreCompleto, auxEdad, auxPosicion, auxNacionalidad,
-			auxIdSeleccion);
+	fscanf(pFile, "%[^\n]\n", auxPrimeraLinea);
 
 	do {
 		retornoFscanf = fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",
 				auxId, auxNombreCompleto, auxEdad, auxPosicion, auxNacionalidad,
 				auxIdSeleccion);
+
 		if (retornoFscanf == 6) {
 			pElemento = jug_newParametros(auxId, auxNombreCompleto, auxEdad,
 					auxPosicion, auxNacionalidad, auxIdSeleccion);
@@ -50,20 +50,42 @@ int parser_JugadorFromText(FILE *pFile, LinkedList *pArrayListJugador) {
 
 /** \brief Parsea los datos de los jugadores desde el archivo binario.
  *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
+ * \param pFile FILE* Puntero a la estructura FILE que contiene los datos del archivo a parsear
+ * \param pArrayListJugador LinkedList* Puntero a la LinkedList donde se guardaran los datos
+ * \return int Retorna 0 si pudo parsear bien y -1 si no pudo
  *
  */
 int parser_JugadorFromBinary(FILE *pFile, LinkedList *pArrayListJugador) {
-	return 1;
+	int retorno;
+	Jugador *pJugador = NULL;
+
+	retorno = -1;
+
+	if (pFile != NULL && pArrayListJugador != NULL) {
+		do {
+			pJugador = jug_new();
+			if (fread(pJugador, sizeof(Jugador), 1, pFile) == 1) {
+				if (pJugador != NULL) {
+					if (ll_add(pArrayListJugador, pJugador) == 0) {
+						retorno = 0;
+					}
+				} else {
+					printf("\nERROR EN EL PARSER.");
+					retorno = -1;
+					break;
+				}
+			}
+		} while (!feof(pFile));
+	}
+
+	return retorno;
 }
 
 /** \brief Parsea los datos de los selecciones desde el archivo selecciones.csv (modo texto).
  *
- * \param path char*
- * \param pArrayListSeleccion LinkedList*
- * \return int
+ * \param pFile FILE* Puntero a la estructura FILE que contiene los datos del archivo a parsear
+ * \param pArrayListSeleccion LinkedList* Puntero a la LinkedList donde se guardaran los datos
+ * \return int Retorna 0 si pudo parsear bien y -1 si no pudo
  *
  */
 int parser_SeleccionFromText(FILE *pFile, LinkedList *pArrayListSeleccion) {
@@ -77,9 +99,8 @@ int parser_SeleccionFromText(FILE *pFile, LinkedList *pArrayListSeleccion) {
 
 	retorno = -1;
 
-	fscanf(pFile, "%[^,],%[^,],%[^,],%[^\n]\n", auxId, auxPais, auxConfederacion,
-			auxConvocados);
-
+	fscanf(pFile, "%[^,],%[^,],%[^,],%[^\n]\n", auxId, auxPais,
+			auxConfederacion, auxConvocados);
 
 	do {
 		retornoFscanf = fscanf(pFile, "%[^,],%[^,],%[^,],%[^\n]\n", auxId,
@@ -100,6 +121,11 @@ int parser_SeleccionFromText(FILE *pFile, LinkedList *pArrayListSeleccion) {
 	return retorno;
 }
 
+/// @fn int parser_IdUnicoFromText(FILE*, int*)
+/// @brief Parsea el ID Unico desde un archivo de texto
+/// @param pFile Puntero a la estructura FILE que contiene los datos del archivo a parsear
+/// @param id Puntero a entero que devolvera por parametro el ID Unico
+/// @return Retorna 0 si pudo parsear y -1 si no pudo
 int parser_IdUnicoFromText(FILE *pFile, int *id) {
 	int retorno;
 	int cantidadLeida;

@@ -1,10 +1,3 @@
-/*
- * inputs.c
- *
- *  Created on: 2 oct. 2022
- *      Author: pablo
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,7 +34,7 @@ int utn_pedirNumero(int *pResultado, char *mensaje, char *mensajeError,
 
 /// @fn int esNumerica(char*)
 /// @brief Valida que la cadena que le llega sea numérica entera
-/// @param cadena Se le pasa una cadena de números
+/// @param cadena Se le pasa un array de caracteres
 /// @return Retorna 0 si la cadena son números y 1 si no lo son
 int esNumerica(char *cadena) {
 	int i = 0;
@@ -102,8 +95,8 @@ int myGets(char *cadena, int longitud) {
 /// @param maximo Rando máximo del número pedido
 /// @param reintentos Cantidad disponible de reintentos
 /// @return Retorna 0 si el número decimal pudo ser obtenido y -1 si no
-int utn_pedirNumeroFlotante(float *pResultado, char *mensaje, char *mensajeError,
-		float minimo, float maximo, int reintentos) {
+int utn_pedirNumeroFlotante(float *pResultado, char *mensaje,
+		char *mensajeError, float minimo, float maximo, int reintentos) {
 	float bufferFloat;
 	int retorno = -1;
 	while (reintentos > 0) {
@@ -210,11 +203,15 @@ int utn_pedirChar(char *pResultado, char *mensaje, char *mensajeError,
 	return retorno;
 }
 
+/// @fn int getChar(char*)
+/// @brief Pide una cadena caderacteres y, si es valida, la devuelve por puntero
+/// @param pResultado Recibe un puntero a char donde se guardará la cadena obtenida
+/// @return Retorna 0 si pudo validar y devolver el char y -1 si no pudo
 int getChar(char *pResultado) {
 	int retorno = -1;
 	char buffer[64];
 	if (pResultado != NULL) {
-		if (myGets(buffer, sizeof(buffer)) == 0/* && esChar(buffer)==0*/) {
+		if (myGets(buffer, sizeof(buffer)) == 0 && esChar(buffer) == 0) {
 			*pResultado = *buffer;
 			retorno = 0;
 		}
@@ -222,6 +219,10 @@ int getChar(char *pResultado) {
 	return retorno;
 }
 
+/// @fn int esChar(char*)
+/// @brief Recibe una cadena de caracteres y valida que sea un caracter
+/// @param cadena Recibe una cadena de caracteres
+/// @return Retorna 0 si es un caracter y -1 si no lo es
 int esChar(char *cadena) {
 	int i = 0;
 	int retorno = 1;

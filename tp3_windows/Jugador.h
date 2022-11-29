@@ -16,8 +16,6 @@ Jugador* jug_new();
 Jugador* jug_newParametros(char *idStr, char *nombreCompletoStr, char *edadStr,
 		char *posicionStr, char *nacionalidadStr, char *idSeleccionStr);
 
-void jug_delete(Jugador *this);
-
 int jug_setId(Jugador *this, int id);
 int jug_getId(Jugador *this, int *id);
 
@@ -43,5 +41,14 @@ int menuModificarJugador(Jugador *jugadorElegido);
 Jugador* jug_encontrarPorId(LinkedList *pArrayListJugador, int id);
 int jug_eliminarJugador(LinkedList *pArrayListJugador, Jugador *pJugador);
 int hayConvocados(LinkedList *pArrayListJugador);
+int jug_convocarJugador(LinkedList *pArrayListJugador,
+		LinkedList *pArrayListSeleccion);
+int jug_quitarDeConvocatoria(LinkedList *pArrayListJugador,
+		LinkedList *pArrayListSeleccion);
+int jug_ordenarPorNacionalidad(void *jugador1, void *jugador2);
+int jug_ordenarPorEdad(void *jugador1, void *jugador2);
+int jug_ordenarPorNombre(void *jugador1, void *jugador2);
+int jug_estaConvocado(void *jugador);
+int jug_ordenarPorId(void *jugador1, void *jugador2);
 
 #endif // jug_H_INCLUDED

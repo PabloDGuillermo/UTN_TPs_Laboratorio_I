@@ -9,8 +9,7 @@
 #ifndef EJUGADOR_H_
 #define EJUGADOR_H_
 
-
-typedef struct{
+typedef struct {
 	int id;
 	char nombre[50];
 	char posicion[50];
@@ -19,25 +18,32 @@ typedef struct{
 	float salario;
 	short aniosContrato;
 	short isEmpty;
-}eJugador;
+} eJugador;
 
 int inicializarArrayJugador(eJugador aJugador[], int longitud_aJugador);
+int hayJugadores(eJugador aJugador[], int longitud_aJugador);
 int buscarIndiceVacioJugador(eJugador aJugador[], int longitud_aJugador);
 int asignarIdJugador(eJugador aJugador[], int longitud_aJugador);
-int pedirNombreJugador(eJugador* pArrayJugador, int longitud_aJugador);
-int pedirPosicionJugador(eJugador* pArrayJugador, int longitud_aJugador);
-int asignarPosicionJugador(eJugador* pArrayJugador, int opcionElegida);
-int pedirNumeroCamisetaJugador(eJugador* pArrayJugador, int longitud_aJugador);
-int pedirIdConfederacionJugador(eJugador* pArrayJugador, int longitud_aJugador, eConfederacion aConfederacion[], int longitud_aConfederacion);
-int pedirSalarioJugador(eJugador* pArrayJugador, int longitud_aJugador);
-int pedirAniosDeContratoJugador(eJugador* pArrayJugador, int longitud_aJugador);
-int altaJugador(eJugador aJugador[], int longitud_aJugador, eConfederacion aConfederacion[], int longitud_aConfederacion);
+int buscarJugadorPorId(eJugador aJugador[], int longitud_aJugador, int id,
+		int *index);
+int pedirNombreJugador(eJugador *unJugador);
+int pedirPosicionJugador(eJugador *unJugador);
+int asignarPosicionJugador(eJugador *unJugador, int opcionElegida);
+int pedirNumeroCamisetaJugador(eJugador *unJugador);
+int pedirIdConfederacionJugador(eJugador *unJugador,
+		eConfederacion aConfederacion[], int longitud_aConfederacion);
+int pedirSalarioJugador(eJugador *unJugador);
+int pedirAniosDeContratoJugador(eJugador *unJugador);
+int altaJugador(eJugador aJugador[], int longitud_aJugador,
+		eConfederacion aConfederacion[], int longitud_aConfederacion);
 int darBajaJugador(eJugador aJugador[], int longitud_aJugador, int idElegido);
-int menuDarBajaJugador(eJugador aJugador[], int longitud_aJugador, eConfederacion aConfederacion[], int longitud_aConfederacion);
+int menuDarBajaJugador(eJugador aJugador[], int longitud_aJugador,
+		eConfederacion aConfederacion[], int longitud_aConfederacion);
 int ordenarPorIdJugador(eJugador aJugador[], int longitud_aJugador);
-int menuModificarJugador(eJugador aJugador[], int longitud_aJugador, eConfederacion aConfederacion[], int longitud_aConfederacion);
-int modificarJugador(eJugador aJugador[], int longitud_aJugador, eConfederacion aConfederacion[], int longitud_aConfederacion, int id);
-int modificarNombreJugador(eJugador aJugador);
-
+int menuModificarJugador(eJugador aJugador[], int longitud_aJugador,
+		eConfederacion aConfederacion[], int longitud_aConfederacion);
+int modificarJugador(eJugador aJugador[], int longitud_aJugador,
+		eConfederacion aConfederacion[], int longitud_aConfederacion, int index);
+int contadorJugadoresIngresados(eJugador aJugador[], int longitud_aJugador);
 
 #endif /* EJUGADOR_H_ */

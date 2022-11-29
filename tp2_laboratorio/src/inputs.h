@@ -13,8 +13,8 @@ int utn_pedirNumero(int *pResultado, char *mensaje, char *mensajeError,
 int esNumerica(char *cadena);
 int getInt(int *pResultado);
 int myGets(char *cadena, int longitud);
-int utn_pedirNumeroFlotante(float *pResultado, char *mensaje, char *mensajeError,
-		float minimo, float maximo, int reintentos);
+int utn_pedirNumeroFlotante(float *pResultado, char *mensaje,
+		char *mensajeError, float minimo, float maximo, int reintentos);
 int esNumericaFlotante(char *cadena);
 int getFloat(float *pResultado);
 int utn_pedirTexto(char *pResultado, char *mensaje, char *mensajeError,
