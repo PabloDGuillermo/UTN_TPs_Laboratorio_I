@@ -16,6 +16,11 @@
 #define VACIO 0
 #define LLENO 1
 
+/// @fn int inicializarArrayConfederacion(eConfederacion*, int)
+/// @brief Inicializa el array de confederacion con el campo isEmpty en VACIO(0)
+/// @param aConfederacion Array de confederaciones
+/// @param longitud_aConfederacion Entero que contiene la longitud del array de la confederacion
+/// @return Retorna 0 si pudo ser inicializado y -1 si no
 int inicializarArrayConfederacion(eConfederacion aConfederacion[],
 		int longitud_aConfederacion) {
 	int retorno;
@@ -32,9 +37,16 @@ int inicializarArrayConfederacion(eConfederacion aConfederacion[],
 	return retorno;
 }
 
+/// @fn int buscarIndiceVacioConfederacion(eConfederacion*, int)
+/// @brief Busca el indice en donde una de las estructuras tiene el campo isEmpty en VACIO(0)
+/// @param aConfederacion Array de confederaciones
+/// @param longitud_aConfederacion Entero que contiene la longitud del array de la confederacion
+/// @return Rertona el indice en el que el campo isEmpty esta en VACIO(0) o -1 si no hay ninguno
 int buscarIndiceVacioConfederacion(eConfederacion aConfederacion[],
 		int longitud_aConfederacion) {
 	int indice;
+
+	indice=-1;
 
 	for (int i = 0; i < longitud_aConfederacion; i++) {
 		if (aConfederacion[i].isEmpty == VACIO) {
@@ -46,6 +58,11 @@ int buscarIndiceVacioConfederacion(eConfederacion aConfederacion[],
 	return indice;
 }
 
+/// @fn int asignarIdConfederacion(eConfederacion*, int)
+/// @brief Le asigna un ID unico a la confederacion que queremos dar de alta
+/// @param aConfederacion Array de confederaciones
+/// @param longitud_aConfederacion Entero que contiene la longitud del array de la confederacion
+/// @return Rertona el ID a asignar
 int asignarIdConfederacion(eConfederacion aConfederacion[],
 		int longitud_aConfederacion) {
 	static int id = 99;
@@ -57,6 +74,13 @@ int asignarIdConfederacion(eConfederacion aConfederacion[],
 	return id;
 }
 
+/// @fn int buscarConfederacionPorId(eConfederacion*, int)
+/// @brief Busca el indice en el que se encuentra la estructura que buscamos por el ID que pasamos por parametro
+/// @param aConfederacion Array de confederaciones
+/// @param longitud_aConfederacion Entero que contiene la longitud del array de la confederacion
+/// @param id Entero que tiene el dato del ID que estamos buscando
+/// @param index Puntero a entero que retornara por parametro el indice que estamos buscando
+/// @return Rertona 0 si pudo encontrarlo y -1 si no pudo
 int buscarConfederacionPorId(eConfederacion aConfederacion[],
 		int longitud_aConfederacion, int id, int *index) {
 	int retorno;
